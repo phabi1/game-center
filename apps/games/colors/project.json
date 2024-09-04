@@ -1,0 +1,9 @@
+{
+  "name": "game-colors",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/games/colors/src",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project game-colors --web",
+  "targets": {}
+}

@@ -1,0 +1,10 @@
+{
+  "name": "game-colors-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/games/colors-e2e/src",
+  "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["game-colors"],
+  "// targets": "to see all targets run: nx show project game-colors-e2e --web",
+  "targets": {}
+}
