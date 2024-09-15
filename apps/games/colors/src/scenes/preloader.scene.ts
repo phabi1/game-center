@@ -1,6 +1,6 @@
-import { BaseScene } from "./base.scene";
+import { SceneBase } from "./base.scene";
 
-export class PreloaderScene extends BaseScene {
+export class PreloaderScene extends SceneBase {
   constructor() {
     super("preloader");
   }
@@ -69,7 +69,7 @@ export class PreloaderScene extends BaseScene {
     ];
 
     images.forEach((image) => {
-      this.load.image(image, "assets/images/" + image + ".png");
+      this.load.image(image, "images/" + image + ".png");
     });
   }
 }

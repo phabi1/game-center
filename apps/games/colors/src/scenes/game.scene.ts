@@ -1,29 +1,44 @@
-import { ColorPicker } from "../components/color-picker";
-import { Tile } from "../components/tile";
-import { Color } from "../helpers/color.helper";
-import { ColorGame } from "../models/game.model";
-import { BaseScene } from "./base.scene";
+import { ColorPicker } from '../components/color-picker';
+import { Tile } from '../components/tile';
+import { ColorHelper } from '../helpers/color.helper';
+import { Color } from '../models/color.model';
+import { ColorGame } from '../models/game.model';
+import { levelService } from '../services/level.service';
+import { SceneBase } from './base.scene';
 
-export default class GameScene extends BaseScene {
+export default class GameScene extends SceneBase {
   private _game!: ColorGame;
-  private _selectedColor: string | null = null;
+  private _selectedColor: Color = 'white';
+  private colorPicker!: ColorPicker;
 
   constructor() {
-    super("game");
+    super('game');
   }
 
-  create(data: { cols: number; rows: number }) {
-    const { cols = 3, rows = 3 } = data;
-    this._game = new ColorGame(cols, rows);
+  create() {
+    const boardSize = levelService.size;
+    this._game = new ColorGame(boardSize, boardSize);
 
     this._game.generateBoard();
+    this._game.generatePlayerBoard();
 
-    const size = (300 - (cols - 1) * 20) / cols;
-    this.generateSampleBoard(size);
-    this.generatePlayerBoard(size);
+    const size = (300 - (boardSize - 1) * 20) / boardSize;
 
-    const colorPicker = new ColorPicker(this, 100, 500, this._game.getColors());
-    colorPicker.on("colorchange", (color: string) => {
+    const boardW = this._game.columns * 80 + (this._game.columns - 1) * 20;
+    const sampleX = this.game.canvas.width / 4 - boardW / 2;
+    const playerX = (this.game.canvas.width / 4) * 3 - boardW / 2;
+
+    this.generateSampleBoard(size, 20, sampleX);
+    this.generatePlayerBoard(size, 20, playerX);
+
+    this.colorPicker = new ColorPicker(
+      this,
+      this.game.canvas.width / 2 - ,
+      this.game.canvas.height - 100,
+      this._game.getColors().filter((color) => color != 'white')
+    );
+
+    this.colorPicker.on('colorchange', (color: Color) => {
       this._selectedColor = color;
     });
   }
@@ -37,7 +52,7 @@ export default class GameScene extends BaseScene {
             y + rowIndex * (size + gap),
             size,
             size,
-            Color.getColor(color),
+            ColorHelper.getColor(color),
             1
           )
           .setOrigin(0);
@@ -55,13 +70,31 @@ export default class GameScene extends BaseScene {
           size,
           size
         );
-        tile.on("tileClicked", () => {
-          if (this._selectedColor && tile.color !== this._selectedColor) {
-            tile.color = this._selectedColor;
-          } else if (tile.color === this._selectedColor) {
-            tile.color = null;
+        tile.setData('row', rowIndex);
+        tile.setData('column', columnIndex);
+        tile.on('tileClicked', () => {
+          if (tile.color === this._selectedColor) {
+            tile.color = 'white';
+            this._game.assignColor(
+              tile.getData('row'),
+              tile.getData('column'),
+              'white'
+            );
           } else {
             tile.color = this._selectedColor;
+            this._game.assignColor(
+              tile.getData('row'),
+              tile.getData('column'),
+              this._selectedColor
+            );
+          }
+
+          if (this._game.isComplete()) {
+            if (levelService.isLast()) {
+              this.scene.start('win');
+            } else {
+              this.scene.start('next');
+            }
           }
         });
       });

@@ -1,8 +1,8 @@
 import { takeUntil } from "rxjs";
 import { TextButton } from "../components/buttons/text.button";
-import { BaseScene } from "./base.scene";
+import { SceneBase } from "./base.scene";
 
-export default class HomeScene extends BaseScene {
+export default class HomeScene extends SceneBase {
   constructor() {
     super("home");
   }

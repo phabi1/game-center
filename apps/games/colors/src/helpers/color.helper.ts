@@ -1,5 +1,7 @@
-export class Color {
-  static getColor(color: string): number {
+import { Color } from "../models/color.model";
+
+export class ColorHelper {
+  static getColor(color: Color): number {
     switch (color) {
       case "red":
         return 0xff0000;

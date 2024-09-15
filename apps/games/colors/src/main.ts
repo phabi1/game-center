@@ -3,6 +3,8 @@ import ConfigureScene from "./scenes/configure.scene";
 import GameScene from "./scenes/game.scene";
 import HomeScene from "./scenes/home.scene";
 import { PreloaderScene } from "./scenes/preloader.scene";
+import { NextScene } from "./scenes/next.scene";
+import { WinScene } from "./scenes/win.scene";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -12,14 +14,11 @@ const config: Phaser.Types.Core.GameConfig = {
   backgroundColor: "#4C4C80",
   physics: {
     default: "arcade",
-    arcade: {
-      gravity: { y: 200 },
-    },
   },
   dom: {
     createContainer: true,
   },
-  scene: [PreloaderScene, HomeScene, ConfigureScene, GameScene],
+  scene: [PreloaderScene, HomeScene, ConfigureScene, GameScene, NextScene, WinScene],
 };
 
 export default new Phaser.Game(config);

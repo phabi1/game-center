@@ -1,11 +1,20 @@
 {
-  "name": "@game-center/source",
-  "version": "0.0.0",
+  "name": "game-center",
+  "version": "1.0.0",
+  "description": "List all games in game center",
   "license": "MIT",
   "scripts": {
     "postinstall": "electron-builder install-app-deps && electron-builder install-app-deps"
   },
   "private": true,
+  "author": {
+    "email": "phabi1@hotmail.fr",
+    "name": "Fabien Heilles",
+    "url": "https://github.com/phabi1"
+  },
+  "repository": {
+    "url": "https://github.com/phabi1/game-center"
+  },
   "devDependencies": {
     "@nx/cypress": "18.3.5",
     "@nx/eslint": "18.3.5",
@@ -54,6 +63,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
+    "phaser": "^3.85.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tslib": "^2.3.0"

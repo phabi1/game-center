@@ -1,6 +1,6 @@
 import { Subject } from "rxjs";
 
-export abstract class BaseScene extends Phaser.Scene {
+export abstract class SceneBase extends Phaser.Scene {
     protected subscribeAll = new Subject<void>();
 
     constructor(key: string) {

@@ -1,4 +1,4 @@
-import { Color } from "../helpers/color.helper";
+import { ColorHelper } from "../helpers/color.helper";
 
 export class Tile extends Phaser.GameObjects.Rectangle {
   private _color: string | null = null;
@@ -24,7 +24,7 @@ export class Tile extends Phaser.GameObjects.Rectangle {
   set color(color: string | null) {
     this._color = color;
     if (color) {
-      this.setFillStyle(Color.getColor(this._color as string), 1);
+      this.setFillStyle(ColorHelper.getColor(this._color as string), 1);
       this.setStrokeStyle(2, 0x000000, 1);
     } else {
       this.setFillStyle(0xffffff, 1);
