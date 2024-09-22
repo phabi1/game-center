@@ -1,14 +1,12 @@
 import { ColorPicker } from '../components/color-picker';
 import { Tile } from '../components/tile';
 import { ColorHelper } from '../helpers/color.helper';
-import { Color } from '../models/color.model';
 import { ColorGame } from '../models/game.model';
 import { levelService } from '../services/level.service';
 import { SceneBase } from './base.scene';
 
 export default class GameScene extends SceneBase {
   private _game!: ColorGame;
-  private _selectedColor: Color = 'white';
   private colorPicker!: ColorPicker;
 
   constructor() {
@@ -44,10 +42,6 @@ export default class GameScene extends SceneBase {
       this.game.canvas.height - 130,
       this._game.getColors().filter((color) => color != 'white')
     );
-
-    this.colorPicker.on('colorchange', (color: Color) => {
-      this._selectedColor = color;
-    });
   }
 
   private generateSampleBoard(size = 80, gap = 20, x = 100, y = 100) {
@@ -80,7 +74,8 @@ export default class GameScene extends SceneBase {
         tile.setData('row', rowIndex);
         tile.setData('column', columnIndex);
         tile.on('tileClicked', () => {
-          if (tile.color === this._selectedColor) {
+          const selectedColor = this.colorPicker.selectedColor;
+          if (tile.color === selectedColor) {
             tile.color = 'white';
             this._game.assignColor(
               tile.getData('row'),
@@ -88,11 +83,11 @@ export default class GameScene extends SceneBase {
               'white'
             );
           } else {
-            tile.color = this._selectedColor;
+            tile.color = selectedColor;
             this._game.assignColor(
               tile.getData('row'),
               tile.getData('column'),
-              this._selectedColor
+              selectedColor
             );
           }
 
