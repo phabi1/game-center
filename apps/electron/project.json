@@ -37,21 +37,22 @@
       "executor": "nx-electron:package",
       "options": {
         "name": "electron",
-        "frontendProject": "portal",
+        "frontendProject": "hub",
         "sourcePath": "dist/apps",
         "outputPath": "dist/packages",
         "prepackageOnly": true,
-        "platform": ["linux", "windows"]
+        "platform":["windows"]
       }
     },
     "make": {
+      "dependsOn": ["build"],
       "executor": "nx-electron:make",
       "options": {
         "name": "electron",
-        "frontendProject": "portal",
+        "frontendProject": "hub",
         "sourcePath": "dist/apps",
         "outputPath": "dist/executables",
-        "platform": ["linux", "windows"]
+        "platform":["windows"]
       }
     },
     "lint": {

@@ -1,6 +1,6 @@
 import { BrowserWindow, screen, shell } from 'electron';
 import { join } from 'path';
-import { format } from 'url';
+import * as url from 'url';
 import { environment } from '../environments/environment';
 import { rendererAppName, rendererAppPort } from './constants';
 import { Container } from './services/di';
@@ -90,8 +90,7 @@ export default class App {
     // App.mainWindow.webContents.on('new-window', (event, url, frameName, disposition, options) => {
     //     App.onRedirect(event, url);
     // });
-
-App.mainWindow.webContents.openDevTools();
+    if (this.isDevelopmentMode()) App.mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     App.mainWindow.on('closed', () => {
@@ -108,7 +107,7 @@ App.mainWindow.webContents.openDevTools();
       App.mainWindow.loadURL(`http://localhost:${rendererAppPort}`);
     } else {
       App.mainWindow.loadURL(
-        format({
+        url.format({
           pathname: join(__dirname, '..', rendererAppName, 'index.html'),
           protocol: 'file:',
           slashes: true,
@@ -132,10 +131,15 @@ App.mainWindow.webContents.openDevTools();
 
     App.container = new Container();
 
+    // const gamesDirectory = App.isDevelopmentMode()
+    //   ? join(app.getAppPath(), '..', '..', '..', 'games')
+    //   : join(app.getPath("userData"), 'games');
+
+    const gamesDirectory = join(app.getPath('home'), 'games');
+
     const gamesService = new GameService();
-    gamesService.setDirectory(
-      join(app.getAppPath(), '..', '..', '..', 'games')
-    );
+
+    gamesService.setDirectory(gamesDirectory);
     App.container.set('games', gamesService);
   }
 }

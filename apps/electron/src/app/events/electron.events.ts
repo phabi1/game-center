@@ -4,6 +4,8 @@
  */
 
 import { app, BrowserWindow, ipcMain } from 'electron';
+import { join } from 'path';
+import * as url from 'url';
 import { environment } from '../../environments/environment';
 import App from '../app';
 import { GameService } from '../services/game.service';
@@ -35,14 +37,20 @@ ipcMain.on('launch-game', async (event, gameId: string) => {
   }
 
   const gameWindow = new BrowserWindow({
+    title: game.title,
     width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true,
     },
+    fullscreenable: true,
   });
 
-  gameWindow.loadURL(app.getAppPath() + '/games/' + game.id + '/index.html');
+  gameWindow.loadURL(url.format({
+    pathname: join(app.getPath('home'), 'games', game.id, 'index.html'),
+    protocol: 'file:',
+    slashes: true,
+  }));
 });
 
 // Handle App termination

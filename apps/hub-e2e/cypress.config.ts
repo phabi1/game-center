@@ -6,12 +6,11 @@ export default defineConfig({
   e2e: {
     ...nxE2EPreset(__filename, {
       cypressDir: 'src',
-      bundler: 'vite',
       webServerCommands: {
-        default: 'nx run portal:serve',
-        production: 'nx run portal:preview',
+        default: 'nx run hub:serve',
+        production: 'nx run hub:preview',
       },
-      ciWebServerCommand: 'nx run portal:serve-static',
+      ciWebServerCommand: 'nx run hub:serve-static',
     }),
     baseUrl: 'http://localhost:4200',
   },

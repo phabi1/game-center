@@ -19,7 +19,6 @@ export class GameService {
     if (!this.loaded) {
       await this.loadGames();
     }
-    console.log(this.games);
     return this.games;
   }
 
@@ -31,7 +30,6 @@ export class GameService {
   }
 
   private async loadGames(): Promise<void> {
-
     const items = await this.scanDirectory(this.directory);
     const games = [];
     for (const item of items) {
@@ -44,32 +42,34 @@ export class GameService {
     this.loaded = true;
   }
 
-private async scanDirectory(directory: string): Promise<string[]> {
+  private async scanDirectory(directory: string): Promise<string[]> {
     const items = [];
     const dirents = await readdir(directory, { withFileTypes: true });
     for (const dirent of dirents) {
       const path = join(directory, dirent.name);
       if (dirent.isDirectory()) {
-        items.push(join(path , 'game.json'));
+        items.push(join(path, 'game.json'));
       }
     }
-    console.log(items);
     return items;
-}
+  }
 
   private async readGameInfo(path: string): Promise<Game> {
     const content = await readFile(path, 'utf-8');
     const info = JSON.parse(content);
     let id: string = info.id;
+    console.log('id', id);
     if (id === undefined) {
-      id = dirname(path).split('/').pop();
+      const paths = dirname(path).replace('\\', '/').split('/');
+      console.log('paths', paths);
+      id = paths.pop();
     }
 
     return {
       id: id,
       title: info.title,
       version: info.version || '1.0.0',
-      screenshot: 'games/' + id + '/screenshot.png',
+      screenshot: join(this.directory, 'games', id, 'screenshot.png'),
     };
   }
 }
