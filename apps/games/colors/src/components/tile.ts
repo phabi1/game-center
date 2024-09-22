@@ -6,8 +6,6 @@ export class Tile extends Phaser.GameObjects.Rectangle {
   constructor(scene: Phaser.Scene, x: number, y: number, w: number, h: number) {
     super(scene, x, y, w, h, 0xffffff, 1);
     this.setOrigin(0);
-    this.setFillStyle(0xffffff, 1);
-    this.setStrokeStyle(2, 0x000000, 1);
     this.setInteractive();
     this.on("pointerdown", this.onTileClicked, this);
     this.scene.add.existing(this);
@@ -25,10 +23,8 @@ export class Tile extends Phaser.GameObjects.Rectangle {
     this._color = color;
     if (color) {
       this.setFillStyle(ColorHelper.getColor(this._color as string), 1);
-      this.setStrokeStyle(2, 0x000000, 1);
     } else {
       this.setFillStyle(0xffffff, 1);
-      this.setStrokeStyle(2, 0x000000, 1);
     }
   }
 }

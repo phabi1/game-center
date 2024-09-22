@@ -1,10 +1,10 @@
 {
   "$schema": "../../../../../node_modules/nx-electron/src/validation/maker.schema.json",
   "linux": {
-    "category": "Games",
-    "target": ["AppImage", "zip"]
+    "category": "Games"
   },
   "win": {
-    "target": "NSIS"
+    "target": "nsis",
+    "sign": false
   }
 }

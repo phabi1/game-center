@@ -7,8 +7,8 @@ export class IconButton extends BaseButton {
         scene: Phaser.Scene,
         x: number,
         y: number,
-        texture: string,
         icon: string,
+        texture: string,
     ) {
         super(scene, x, y, texture);
     

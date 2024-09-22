@@ -12,7 +12,7 @@ export default class HomeScene extends SceneBase {
     bg.displayWidth = this.game.canvas.width;
     bg.displayHeight = this.game.canvas.height;
 
-    const playButton = new TextButton(this, 400, 300, "button", "Play");
+    const playButton = new TextButton(this, 400, 300, "Jouer");
     playButton
       .onClick()
       .pipe(takeUntil(this.subscribeAll))

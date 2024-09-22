@@ -8,9 +8,14 @@ export class ColorPicker extends Phaser.GameObjects.Container {
   constructor(scene: Phaser.Scene, x: number, y: number, colors: Color[]) {
     super(scene, x, y);
 
-    colors.forEach((color, index) => {
+    const bg = scene.add.image(0, 0, 'colorpicker_bg_default');
+    bg.setOrigin(0);
+    this.add(bg);
+
+    let xPos = 0;
+    colors.forEach((color) => {
       const colorRect = scene.add
-        .rectangle(index * 50, 0, 40, 40, ColorHelper.getColor(color), 1)
+        .rectangle(xPos, 24, 40, 40, ColorHelper.getColor(color), 1)
         .setOrigin(0);
       colorRect.setData('color', color);
       colorRect.setInteractive();
@@ -19,12 +24,13 @@ export class ColorPicker extends Phaser.GameObjects.Container {
       });
 
       this.add(colorRect);
+      xPos += 50;
     });
 
     this._selectedColor = colors[0];
 
     this._cursor = scene.add
-      .rectangle(0, -1, 42, 42, 0xffffff, 0)
+      .rectangle(0, 23, 42, 42, 0xffffff, 0)
       .setOrigin(0)
       .setStrokeStyle(2, 0xffffff, 1);
     this.add(this._cursor);

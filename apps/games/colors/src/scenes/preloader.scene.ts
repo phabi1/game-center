@@ -57,15 +57,9 @@ export class PreloaderScene extends SceneBase {
 
     const images: string[] = [
       "background_home",
-      "banner_classic_curtain",
-      "banner_hanging",
-      "banner_modern",
-      "button_brown_close",
-      "button_brown",
-      "button_grey_close",
-      "button_grey",
-      "button_red_close",
-      "button_red",
+      "panel_default",
+      "button_rect_fill_default",
+      "colorpicker_bg_default"
     ];
 
     images.forEach((image) => {

@@ -40,7 +40,8 @@
         "frontendProject": "portal",
         "sourcePath": "dist/apps",
         "outputPath": "dist/packages",
-        "prepackageOnly": true
+        "prepackageOnly": true,
+        "platform": ["linux", "windows"]
       }
     },
     "make": {
@@ -49,7 +50,8 @@
         "name": "electron",
         "frontendProject": "portal",
         "sourcePath": "dist/apps",
-        "outputPath": "dist/executables"
+        "outputPath": "dist/executables",
+        "platform": ["linux", "windows"]
       }
     },
     "lint": {

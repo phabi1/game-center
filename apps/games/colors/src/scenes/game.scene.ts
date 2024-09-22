@@ -16,25 +16,32 @@ export default class GameScene extends SceneBase {
   }
 
   create() {
+
+    const bg = this.add.image(0, 0, 'background_home').setOrigin(0);
+    bg.displayWidth = this.game.canvas.width;
+    bg.displayHeight = this.game.canvas.height;
+    bg.setAlpha(0.5)
+
     const boardSize = levelService.size;
     this._game = new ColorGame(boardSize, boardSize);
 
     this._game.generateBoard();
     this._game.generatePlayerBoard();
 
-    const size = (300 - (boardSize - 1) * 20) / boardSize;
+    const gap = 20;
+    const size = (300 - (boardSize - 1) * gap) / boardSize;
 
-    const boardW = this._game.columns * 80 + (this._game.columns - 1) * 20;
+    const boardW = this._game.columns * size + (this._game.columns - 1) * gap;
     const sampleX = this.game.canvas.width / 4 - boardW / 2;
     const playerX = (this.game.canvas.width / 4) * 3 - boardW / 2;
 
-    this.generateSampleBoard(size, 20, sampleX);
-    this.generatePlayerBoard(size, 20, playerX);
+    this.generateSampleBoard(size, gap, sampleX);
+    this.generatePlayerBoard(size, gap, playerX);
 
     this.colorPicker = new ColorPicker(
       this,
-      this.game.canvas.width / 2 - ,
-      this.game.canvas.height - 100,
+      this.game.canvas.width / 2 - 150,
+      this.game.canvas.height - 130,
       this._game.getColors().filter((color) => color != 'white')
     );
 
